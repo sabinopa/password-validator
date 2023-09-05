@@ -14,12 +14,12 @@ def run_validations(password)
   end
 
   letters = /[a-zA-Z]/.match(password).to_a
-  if letters.none?{|char| char == char.upcase}
+  if letter.empty? || letters.none?{|char| char == char.upcase}
     messages << "Must have at least one capital letter."
   end
 
   numbers = /[0-9]/.match(password).to_a
-  if numbers.empty? 
+  if numbers.empty? #|| sequencia? 
     messages << "Must have at least one number."
   end
 
