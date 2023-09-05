@@ -8,22 +8,27 @@ def get_password
 end
 
 def run_validations(password)
+  messages = []
   letters = /[a-zA-Z]/.match(password).to_a
   if password.length < 8
-    message = "Must have at least 8 characteres."
-  elsif letters.none?{|char| char == char.upcase}
-    message = "Must have at least one capital letter."
-  else
-    message = "Valid password."
+    messages << "Must have at least 8 characteres."
   end
-  message  
+
+  if letters.none?{|char| char == char.upcase}
+    messages << "Must have at least one capital letter."
+  end
+
+  if messages.length == 0
+    messages << "Valid password."
+  end
+  messages  
 end
 
 def validate_password
   print_hello_message 
   password = get_password
-  message = run_validations(password)
-  puts message
+  messages = run_validations(password)
+  puts messages
 end
 
 validate_password
