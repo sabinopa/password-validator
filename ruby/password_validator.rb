@@ -9,18 +9,24 @@ end
 
 def run_validations(password)
   messages = []
-  letters = /[a-zA-Z]/.match(password).to_a
   if password.length < 8
     messages << "Must have at least 8 characteres."
   end
 
+  letters = /[a-zA-Z]/.match(password).to_a
   if letters.none?{|char| char == char.upcase}
     messages << "Must have at least one capital letter."
   end
 
-  if messages.length == 0
+  numbers = /[0-9]/.match(password).to_a
+  if numbers.empty? 
+    messages << "Must have at least one number."
+  end
+
+  if messages.empty? 
     messages << "Valid password."
   end
+  
   messages  
 end
 
