@@ -1,30 +1,41 @@
-def hello_message
+def print_hello_message
   puts "Hello! This is The Password Validator."
-  puts "Depending on what you type your access will be diferent."
 end
 
-def email_register
-  puts "First, write your e-mail: "
-  email = gets.chomp
-end
-
-def password
+def get_password
   puts "Now, write your password:"
-  password = gets.chomp
+  gets.chomp
+end
 
-  if password.length > 8 
-    puts "You are good making passwords, you got complete access!"
-  elsif password.length <= 7 || >= 5
-    puts "Meh, your password is ok. You got a standard access."
-  else password.length <= 4
-    puts "You are not allowed to enter."
+def run_validations(password)
+  messages = []
+  if password.length < 8
+    messages << "Must have at least 8 characteres."
   end
+
+  letters = /[a-zA-Z]/.match(password).to_a
+  if letters.empty? || letters.none?{|char| char == char.upcase}
+    messages << "Must have at least one capital letter."
+  end
+
+  numbers = /[0-9]/.match(password).to_a
+  if numbers.empty? #|| sequencia? 
+    messages << "Must have at least one number."
+  end
+
+  if messages.empty? 
+    messages << "Valid password."
+  end
+  
+  messages  
 end
 
-def password_validator
-  hello_message
-  email_register  
-  password
+def validate_password
+  print_hello_message 
+  password = get_password
+  messages = run_validations(password)
+  puts messages
 end
 
-password_validator
+validate_password
+
