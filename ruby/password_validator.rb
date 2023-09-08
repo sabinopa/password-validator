@@ -14,7 +14,7 @@ def run_validations(password)
   end
 
   letters = /[a-zA-Z]/.match(password).to_a
-  if letter.empty? || letters.none?{|char| char == char.upcase}
+  if letters.empty? || letters.none?{|char| char == char.upcase}
     messages << "Must have at least one capital letter."
   end
 
