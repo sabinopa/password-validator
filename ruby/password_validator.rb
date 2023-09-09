@@ -9,8 +9,9 @@ end
 
 def run_validations(password)
   messages = []
+
   if password.length < 8
-    messages << "Must have at least 8 characteres."
+    messages << "Must have at least 8 characters."
   end
 
   letters = /[a-zA-Z]/.match(password).to_a
@@ -19,8 +20,18 @@ def run_validations(password)
   end
 
   numbers = /[0-9]/.match(password).to_a
-  if numbers.empty? #|| sequencia? 
+  if numbers.empty? 
     messages << "Must have at least one number."
+  end
+
+  sequences = ['123', '234', '345', '456', '567', '678', '789', '987', '876', '765', '654', '543', '432', '321']
+  if sequences.any? { |seq| password.include?(seq) }
+    messages << "Cannot have numbers in sequence."
+  end
+
+  symbols = password.scan(/\W/)
+  if symbols.empty?
+    messages << "Must have at least one symbol (!@#$%^&*)."
   end
 
   if messages.empty? 
@@ -38,4 +49,3 @@ def validate_password
 end
 
 validate_password
-
